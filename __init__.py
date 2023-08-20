@@ -8,14 +8,19 @@ import re
 class CaseConverter:
     def __init__(self, word):
         self.word_list = list()
-        word = re.sub('([A-Z])', '_\\1', word)
-        if word[0] == '_':
-            word = word[1:]
+
+        # スネークケースの場合を先に処理する
         if '_' in word:
-            self.word_list = word.split('_')
+            self.word_list = [i.lower() for i in word.split('_')]
         else:
-            self.word_list.append(word.lower())
-        pass
+            word = re.sub('([A-Z])', '_\\1', word)
+            if word[0] == '_':
+                word = word[1:]
+                if '_' in word:
+                    self.word_list = word.split('_')
+                else:
+                    self.word_list.append(word.lower())
+                pass
     def to_upper_snake_case(self):
         snake_case = '_'.join(self.word_list).upper()
         return snake_case
@@ -47,17 +52,12 @@ def create_concrete_from_params(template_file_name: str, params: dict, output_fi
     if not os.path.isfile(template_file_name):
         print('テンプレートファイル[' + template_file_name + ']が見つかりませんでした')
         return
-    template_file = codecs.open(template_file_name, 'r', 'utf8')
-
-
     env = Environment(loader=FileSystemLoader('.'), trim_blocks=False)
     env.filters['to_lower_snake_case'] = to_lower_snake_case
     env.filters['to_upper_snake_case'] = to_upper_snake_case
     env.filters['to_lower_camel_case'] = to_lower_camel_case
     env.filters['to_upper_camel_case'] = to_upper_camel_case
     template = env.get_template(template_file_name)
-    #template = Template(template_file.read())
-    #template_file.close()
 
     # 出力ファイル書き込み
     try:
@@ -72,21 +72,6 @@ def create_concrete_from_params(template_file_name: str, params: dict, output_fi
 
 def create_concrete_from_files(template_file_name: str, params_file_name: str, output_file_name: str):
 
-    # テンプレートファイル読み込み
-    if not os.path.isfile(template_file_name):
-        print('テンプレートファイル[' + template_file_name + ']が見つかりませんでした')
-        return
-    # template_file = codecs.open(template_file_name, 'r', 'utf8')
-    # template = Template(template_file.read())
-    # template_file.close()
-
-    env = Environment(loader=FileSystemLoader('.'), trim_blocks=False)
-    env.filters['to_lower_snake_case'] = to_lower_snake_case
-    env.filters['to_upper_snake_case'] = to_upper_snake_case
-    env.filters['to_lower_camel_case'] = to_lower_camel_case
-    env.filters['to_upper_camel_case'] = to_upper_camel_case
-    template = env.get_template(template_file_name)
-
     # パラメータファイル読み込み
     if not os.path.isfile(params_file_name):
         print('パラメータファイル[' + params_file_name + ']が見つかりませんでした')
@@ -94,16 +79,18 @@ def create_concrete_from_files(template_file_name: str, params_file_name: str, o
     params_file = codecs.open(params_file_name, 'r', 'utf8')
     params = json.load(params_file)
     params_file.close()
-
-    # 出力ファイル書き込み
-    try:
-        output_file = codecs.open(output_file_name, 'w', 'utf8')
-        output_file.write(template.render(params))
-        output_file.close()
-        print('ファイル[' + output_file_name + ']を作成しました')
-    except:
-        print('ファイル[' + output_file_name + ']を作成できませんでした')
-        pass
+    create_concrete_from_params(template_file_name, params, output_file_name)
     return
 
 
+print(CaseConverter('hoge_fuge').to_upper_snake_case())
+print(CaseConverter('hoge_fuge').to_upper_camel_case())
+print(CaseConverter('hoge_fuge').to_lower_snake_case())
+print(CaseConverter('hoge_fuge').to_lower_camel_case())
+print(CaseConverter('hoge_fuge').to_kebab_case())
+
+print(CaseConverter('HOGE_FUGA').to_upper_snake_case())
+print(CaseConverter('HOGE_FUGA').to_upper_camel_case())
+print(CaseConverter('HOGE_FUGA').to_lower_snake_case())
+print(CaseConverter('HOGE_FUGA').to_lower_camel_case())
+print(CaseConverter('HOGE_FUGA').to_kebab_case())

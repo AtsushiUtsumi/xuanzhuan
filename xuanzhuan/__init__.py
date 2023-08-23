@@ -94,3 +94,6 @@ print(CaseConverter('HOGE_FUGA').to_upper_camel_case())
 print(CaseConverter('HOGE_FUGA').to_lower_snake_case())
 print(CaseConverter('HOGE_FUGA').to_lower_camel_case())
 print(CaseConverter('HOGE_FUGA').to_kebab_case())
+
+
+# 今はhogeみたいな適当な名前だが、基本的なテンプレートをXuanZhuanに統合したい

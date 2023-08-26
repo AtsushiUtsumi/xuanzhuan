@@ -7,4 +7,6 @@ setup(
     install_requires=[
         'jinja2',
     ],
+    package_data={'xuanzhuan': ['hoge/hoge.txt','templates/*.j2']},
+    include_package_data=True,
 )

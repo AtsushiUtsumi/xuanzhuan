@@ -51,13 +51,15 @@ def create_concrete_from_params(template_file_name: str, params: dict, output_fi
     # テンプレートファイル読み込み
     if not os.path.isfile(template_file_name):
         print('テンプレートファイル[' + template_file_name + ']が見つかりませんでした')
-        return
-    env = Environment(loader=FileSystemLoader('.'), trim_blocks=False)
+    sep = template_file_name.rfind('/')
+    dir = template_file_name[:sep]
+    file_name = template_file_name[sep+1:]
+    env = Environment(loader=FileSystemLoader(dir), trim_blocks=False)
     env.filters['to_lower_snake_case'] = to_lower_snake_case
     env.filters['to_upper_snake_case'] = to_upper_snake_case
     env.filters['to_lower_camel_case'] = to_lower_camel_case
     env.filters['to_upper_camel_case'] = to_upper_camel_case
-    template = env.get_template(template_file_name)
+    template = env.get_template(file_name)
 
     # 出力ファイル書き込み
     try:

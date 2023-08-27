@@ -1,6 +1,7 @@
 {
     "files.exclude": {
         "build": true,
+        "**/__pycache__": true,
         "xuanzhuan.egg-info": true
     }
 }

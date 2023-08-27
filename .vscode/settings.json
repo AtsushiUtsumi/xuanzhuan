@@ -3,5 +3,10 @@
         "build": true,
         "**/__pycache__": true,
         "xuanzhuan.egg-info": true
-    }
+    },
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

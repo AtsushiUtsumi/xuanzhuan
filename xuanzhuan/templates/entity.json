@@ -1,0 +1,17 @@
+{
+    "tableName": "hoge",
+    "list": [
+        {
+            "langType": "Date",
+            "langName": "registerDateFrom",
+            "dbType": "Timestamp",
+            "dbName": "REGISTER_DATE_FROM"
+        },
+        {
+            "langType": "Date",
+            "langName": "registerDateTo",
+            "dbType": "Timestamp",
+            "dbName": "REGISTER_DATE_TO"
+        }
+    ]
+}

@@ -16,10 +16,10 @@ class CaseConverter:
             word = re.sub('([A-Z])', '_\\1', word)
             if word[0] == '_':
                 word = word[1:]
-                if '_' in word:
-                    self.word_list = word.split('_')
-                else:
-                    self.word_list.append(word.lower())
+            if '_' in word:
+                self.word_list = word.split('_')
+            else:
+                self.word_list.append(word.lower())
                 pass
     def to_upper_snake_case(self):
         snake_case = '_'.join(self.word_list).upper()
@@ -90,6 +90,12 @@ print(CaseConverter('hoge_fuge').to_upper_camel_case())
 print(CaseConverter('hoge_fuge').to_lower_snake_case())
 print(CaseConverter('hoge_fuge').to_lower_camel_case())
 print(CaseConverter('hoge_fuge').to_kebab_case())
+
+print(CaseConverter('HOGE_FUGA').to_upper_snake_case())
+print(CaseConverter('HOGE_FUGA').to_upper_camel_case())
+print(CaseConverter('HOGE_FUGA').to_lower_snake_case())
+print(CaseConverter('HOGE_FUGA').to_lower_camel_case())
+print(CaseConverter('HOGE_FUGA').to_kebab_case())
 
 print(CaseConverter('HOGE_FUGA').to_upper_snake_case())
 print(CaseConverter('HOGE_FUGA').to_upper_camel_case())

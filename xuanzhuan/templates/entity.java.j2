@@ -1,1 +1,11 @@
-//{{tableName | to_upper_camel_case}}クラスの自動生成
+// {{tableName | to_lower_snake_case}}クラスの自動生成
+// {{tableName | to_upper_snake_case}}クラスの自動生成
+// {{tableName | to_lower_camel_case}}クラスの自動生成
+// {{tableName | to_upper_camel_case}}クラスの自動生成
+
+class {{tableName | to_upper_camel_case}} {
+{% for column in columnList %}
+    @Column(name="{{column.dbName}}")
+    {{column.langType}} {{column.langName}};
+{% endfor %}
+}

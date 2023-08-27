@@ -1,6 +1,6 @@
 {
     "tableName": "hoge",
-    "list": [
+    "columnList": [
         {
             "langType": "Date",
             "langName": "registerDateFrom",

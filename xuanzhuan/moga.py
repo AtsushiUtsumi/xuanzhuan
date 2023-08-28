@@ -1,0 +1,2 @@
+def gaga():
+    print('ガガガ')

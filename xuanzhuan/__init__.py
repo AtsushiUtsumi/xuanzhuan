@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+
+__version__ = "7.7.7"
+
+# 以下のモジュール名の前に「.」をつけるのが重要でした!
+from .moga import *
+
+
 import codecs
 from jinja2 import Environment, FileSystemLoader, Template
 import os

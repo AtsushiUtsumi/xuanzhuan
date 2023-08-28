@@ -4,6 +4,7 @@ __version__ = "7.7.7"
 
 # 以下のモジュール名の前に「.」をつけるのが重要でした!
 from .moga import *
+from .fuga.controller import *
 
 
 import codecs

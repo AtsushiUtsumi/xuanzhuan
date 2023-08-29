@@ -91,25 +91,3 @@ def create_concrete_from_files(template_file_name: str, params_file_name: str, o
     params_file.close()
     create_concrete_from_params(template_file_name, params, output_file_name)
     return
-
-
-print(CaseConverter('hoge_fuge').to_upper_snake_case())
-print(CaseConverter('hoge_fuge').to_upper_camel_case())
-print(CaseConverter('hoge_fuge').to_lower_snake_case())
-print(CaseConverter('hoge_fuge').to_lower_camel_case())
-print(CaseConverter('hoge_fuge').to_kebab_case())
-
-print(CaseConverter('HOGE_FUGA').to_upper_snake_case())
-print(CaseConverter('HOGE_FUGA').to_upper_camel_case())
-print(CaseConverter('HOGE_FUGA').to_lower_snake_case())
-print(CaseConverter('HOGE_FUGA').to_lower_camel_case())
-print(CaseConverter('HOGE_FUGA').to_kebab_case())
-
-print(CaseConverter('HOGE_FUGA').to_upper_snake_case())
-print(CaseConverter('HOGE_FUGA').to_upper_camel_case())
-print(CaseConverter('HOGE_FUGA').to_lower_snake_case())
-print(CaseConverter('HOGE_FUGA').to_lower_camel_case())
-print(CaseConverter('HOGE_FUGA').to_kebab_case())
-
-
-# 今はhogeみたいな適当な名前だが、基本的なテンプレートをXuanZhuanに統合したい

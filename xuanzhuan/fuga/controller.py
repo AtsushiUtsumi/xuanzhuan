@@ -6,3 +6,4 @@ def fuga2():
 
 def fuga3():
 	print('CCC')
+

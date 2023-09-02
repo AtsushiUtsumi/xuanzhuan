@@ -355,3 +355,5 @@ create_2d_umap(digits.data, digits.target, digits.target_names, [5,10,15])
 create_2d_umap(df_pca, digits.target, digits.target_names, [5,10,15])
 
 
+def show():
+    print('次元削減読み終えた')

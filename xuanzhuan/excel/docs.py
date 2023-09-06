@@ -2,6 +2,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment
 
 import openpyxl
+from openpyxl.styles.borders import Border, Side
 
 
 def create_docs(docs_name: str):
@@ -74,6 +75,13 @@ class Docs:
         return
 
     def save(self):
+        side = Side(style='thin', color='000000')
+        #side = Side(style='medium', color='000000')
+        #side = Side(style='thick', color='000000')
+        border = Border(top=side, bottom=side, left=side, right=side)
+        for row in self.sheet:
+            for cell in row:
+                self.sheet[cell.coordinate].border = border
         self.workbook.save(f"{self.docs_name}.xlsx")
         return
 

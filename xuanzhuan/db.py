@@ -1,3 +1,4 @@
+import sqlite3
 from xuanzhuan import CaseConverter
 
 def create_entity_and_bean(column_list):
@@ -10,3 +11,21 @@ def create_entity_and_bean(column_list):
     for i in column_list:
         output += f'\tprivate String {CaseConverter(i).to_lower_camel_case()};\n'
     return output
+
+def read(query: str):
+    ret = list()
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    rs = c.execute(query)
+    for i in rs:
+        ret.append(i)
+    conn.close()
+    return ret
+
+def write(query: str):
+    conn = sqlite3.connect('example.db')
+    c = conn.cursor()
+    c.execute(query)
+    conn.commit()
+    conn.close()
+    return

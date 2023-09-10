@@ -31,6 +31,3 @@ def list_dot(list_list: list[list[str]]):
     for i in x.value:
         ret.append(i)
     return ret
-
-for i in list_dot([['A', 'B'],['C', 'D'],['E', 'F']]):
-    print(i)

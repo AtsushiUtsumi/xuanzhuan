@@ -48,8 +48,6 @@ def create_ld_from_sample_dict(params: dict[str, str]) -> list[dict[str,str]]:
     ret = list()
     ll = create_ll_from_sample_dict(params)
     ll = list_dot(ll)
-    print('以下の通り')
-    print(ll)
     for l in ll:
         tmp = dict()
         for s in l:
@@ -78,7 +76,6 @@ def query_create_table(table_name: str, columns: dict[str, str]):# 「カラム�
 
 def execute_create_table(table_name: str, columns: dict[str, str]):# 「カラム名: 型」の辞書
     query = query_create_table(table_name, columns)
-    print('以下のクエリを実行します\n' + query)
     write(query)
     return
 

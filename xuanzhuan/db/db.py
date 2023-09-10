@@ -57,7 +57,8 @@ def create_ld_from_sample_dict(params: dict[str, str]) -> list[dict[str,str]]:
         ret.append(tmp)
     return ret
 
-from .utils.list_dot import list_dot
+from ..utils.list_dot import list_dot
+
 
 def create_insert_sample_query(table_name: str, params: dict[str, str]) -> list[str]:
     ret = []
@@ -96,7 +97,7 @@ def query_insert(table_name: str, record: dict[str, str]):# 「カラム名: 値
     query = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
     return query
 
-def execute_insert(table_name: str, columns: dict[str, str]):# 「カラム名: 値」の辞書
-    query = query_insert(table_name, columns)
+def execute_insert(table_name: str, record: dict[str, str]):# 「カラム名: 値」の辞書
+    query = query_insert(table_name, record)
     write(query)
     return

@@ -1,6 +1,8 @@
 import pytest
 
 from xuanzhuan import CaseConverter
+from xuanzhuan import to_lower_camel_case# VSCodeはたどれる
+from xuanzhuan import to_lower_snake_case# VSCodeはたどれない、けどimportは出来てる
 
 @pytest.mark.parametrize(
     "x, y", [
@@ -33,3 +35,9 @@ def test_2(x, y, z):
 )
 def test_アッパースネークケースへの変換(before, after):
     assert CaseConverter(before).to_upper_snake_case() == after
+
+def test_スネークフィルター():
+    assert to_lower_snake_case('HOGE_HOGE') == 'hoge_hoge'
+
+def test_キャメルフィルター():
+    assert to_lower_camel_case('HOGE_HOGE') == 'hogeHoge'

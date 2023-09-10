@@ -65,3 +65,38 @@ def create_insert_sample_query(table_name: str, params: dict[str, str]) -> list[
     for i in ll:
         ret.append('INSERT ' + str(i))
     return ret
+
+
+def query_create_table(table_name: str, columns: dict[str, str]):# 「カラム名: 型」の辞書
+    tmp = []
+    for n, t in columns.items():
+        tmp.append(f"{n} {t}")
+    s = ', '.join(tmp)
+    query = f'CREATE TABLE IF NOT EXISTS {table_name} ({s})'
+    return query
+
+def execute_create_table(table_name: str, columns: dict[str, str]):# 「カラム名: 型」の辞書
+    query = query_create_table(table_name, columns)
+    print('以下のクエリを実行します\n' + query)
+    write(query)
+    return
+
+def query_drop_table(table_name: str):
+    query = f'DROP TABLE IF EXISTS {table_name}'
+    return query
+
+def execute_drop_table(table_name: str):
+    query = query_drop_table(table_name)
+    write(query)
+    return
+
+def query_insert(table_name: str, record: dict[str, str]):# 「カラム名: 値」の辞書
+    columns = ', '.join(record.keys())
+    values = ', '.join(["'" + i + "'" for i in record.values()])
+    query = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
+    return query
+
+def execute_insert(table_name: str, columns: dict[str, str]):# 「カラム名: 値」の辞書
+    query = query_insert(table_name, columns)
+    write(query)
+    return

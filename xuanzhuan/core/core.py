@@ -90,3 +90,19 @@ def create_concrete_from_files(template_file_name: str, params_file_name: str, o
     params_file.close()
     create_concrete_from_params(template_file_name, params, output_file_name)
     return
+
+def create_files_from_dir(input_dir: str, output_dir: str):
+    """
+    与えられたディレクトリ内をスキャンして出力ディレクトリに複数のファイルを出力
+    パラメータファイル「json」ファイル(必ず1つ)
+    テンプレートファイル「j2」ファイル(1つ以上)
+    を入力ディレクトリ内に入れておく必要がある
+    Args:
+        input_dir (stirng): 入力ディレクトリ
+        output_dir (stirng): 出力ディレクトリ
+    """
+    files = os.listdir(input_dir)
+    print(files)
+    for i in files:
+        print(f'{output_dir}/{i}')
+    return

@@ -103,6 +103,14 @@ def create_files_from_dir(input_dir: str, output_dir: str):
     """
     files = os.listdir(input_dir)
     print(files)
+    template_file_path_list = []
+    json_file_path = ''
     for i in files:
-        print(f'{output_dir}/{i}')
+        path = f'{input_dir}/{i}'
+        if path.endswith('.j2'):
+            template_file_path_list.append(path)
+        elif path.endswith('.json'):
+            json_file_path = path
+    for t in template_file_path_list:
+        create_concrete_from_files(t, json_file_path, t.rstrip('.j2').replace(input_dir, output_dir))
     return

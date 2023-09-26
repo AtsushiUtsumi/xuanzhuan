@@ -13,3 +13,9 @@ def show_maven():
 	を表示する
 	"""
 	print('このマシンにインストールされているMAVENバージョン情報:' + result.stdout.split('\n')[0])
+
+def show_spring():
+	cmd = 'spring --version'
+	result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+	print('このマシンにインストールされているSPRINGバージョン情報:' + result.stdout.split('\n')[0])
+	return

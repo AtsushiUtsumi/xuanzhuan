@@ -8,6 +8,8 @@ def readme():
 
 __version__ = "7.7.7"
 
+__templates_dir__ = __path__[0] + '\\templates'
+
 from .core import CaseConverter
 from .core import to_lower_camel_case
 from .core import to_lower_snake_case

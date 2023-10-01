@@ -15,32 +15,18 @@ public class {{name|to_upper_camel_case}}Controller {
 		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
 	}
 
-	@GetMapping("/create")
-	@ResponseBody
-	public String create() {
-		return "登録";
+	@GetMapping("/register")
+	public String register() {
+		return "{{name}}Register";
 	}
 
-	@GetMapping("/read")
-	@ResponseBody
-	public String read() {
-		return "表示";
+	@GetMapping("/edit")
+	public String edit() {
+		return "{{name}}Edit";
 	}
 
-	@GetMapping("/update")
-	@ResponseBody
-	public String update() {
-		return "更新";
-	}
-
-	@GetMapping("/delete")
-	@ResponseBody
-	public String delete() {
-		return "消去";
-	}
-	
-	@GetMapping("jojo")
-	public String jojo() {
-		return "home";
+	@GetMapping("/list")
+	public String list() {
+		return "{{name}}List";
 	}
 }

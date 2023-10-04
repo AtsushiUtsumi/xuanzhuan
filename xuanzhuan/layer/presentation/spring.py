@@ -16,7 +16,7 @@ class PresentationSpring(Presentation):
         self.project_root = f'{output_dir}/{project_name}'
         self.controller_root = f'{self.project_root}/src/main/java/com/example/{project_name}/controller'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
-        cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
+        cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
         os.mkdir(self.controller_root)

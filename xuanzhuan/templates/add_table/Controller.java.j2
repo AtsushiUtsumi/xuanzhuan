@@ -1,0 +1,32 @@
+package {{package}};
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping("/{{table.name | to_lower_camel_case}}")
+public class {{table.name | to_upper_camel_case}}Controller {
+
+	@GetMapping()
+	@ResponseBody
+	public String index() {
+		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
+	}
+
+	@GetMapping("/register")
+	public String register() {
+		return "{{table.name | to_lower_camel_case}}Register";
+	}
+
+	@GetMapping("/edit")
+	public String edit() {
+		return "{{table.name | to_lower_camel_case}}Edit";
+	}
+
+	@GetMapping("/list")
+	public String list() {
+		return "{{table.name | to_lower_camel_case}}List";
+	}
+}

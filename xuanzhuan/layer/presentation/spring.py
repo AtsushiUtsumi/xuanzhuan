@@ -61,7 +61,8 @@ class PresentationSpring(Presentation):
         # javaファイル名設定
         controller_file_name = f'{self.controller_root}/{upper_camel}Controller.java'
         service_file_name = f'{self.service_root}/{upper_camel}Service.java'
-        form_file_name = f'{self.controller_root}/{upper_camel}Form.java'
+        list_form_file_name = f'{self.controller_root}/{upper_camel}ListForm.java'
+        detail_form_file_name = f'{self.controller_root}/{upper_camel}DetailForm.java'
         entity_file_name = f'{self.entity_root}/{upper_camel}.java'
         repository_file_name = f'{self.repository_root}/{upper_camel}Repository.java'
 
@@ -71,8 +72,8 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/register.html.j2', {'table': table}, register_html_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
         # Formクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.form'}, form_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.form'}, form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller'}, list_form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller'}, detail_form_file_name)
         # Controllerクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller'}, controller_file_name)
         # Serviceクラス

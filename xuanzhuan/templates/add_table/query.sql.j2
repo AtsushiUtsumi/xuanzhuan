@@ -1,1 +1,1 @@
-// {{package}}
+CREATE TABLE {{table.name | to_upper_snake_case()}} ({% for column in table.columnList %}{{column.dbName}} {{column.dbType}}{% if not loop.last %}, {% endif %}{% endfor %})

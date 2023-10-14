@@ -16,7 +16,7 @@ class PresentationSpring(Presentation):
         self.project_root = f'{output_dir}/{project_name}'
         self.repository_root = f'{self.project_root}/src/main/java/com/example/{project_name}/domain'
         self.entity_root = f'{self.project_root}/src/main/java/com/example/{project_name}/entity'
-        self.service_root = f'{self.project_root}/src/main/java/com/example/{project_name}/servive'
+        self.service_root = f'{self.project_root}/src/main/java/com/example/{project_name}/service'
         self.controller_root = f'{self.project_root}/src/main/java/com/example/{project_name}/controller'
         self.form_root = f'{self.project_root}/src/main/java/com/example/{project_name}/form'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'

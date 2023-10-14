@@ -18,6 +18,7 @@ public class {{table.name | to_upper_camel_case}}Controller {
 
 	@GetMapping("/register")
 	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		//{{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}service;
 		return "{{table.name | to_lower_camel_case}}Register";
 	}
 

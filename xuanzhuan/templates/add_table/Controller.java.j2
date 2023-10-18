@@ -1,34 +1,62 @@
 package {{package}};
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+// 「{{table.name | to_upper_camel_case}}Controller」を「{{table.name | to_upper_camel_case}}Register(index,register)」「{{table.name | to_upper_camel_case}}Edit(index,update,delete)」「{{table.name | to_upper_camel_case}}List(index,search,download)」に分ける方が良いように感じてきた今日この頃...
 
 @Controller
 @RequestMapping("/{{table.name | to_lower_camel_case}}")
 public class {{table.name | to_upper_camel_case}}Controller {
 
+	@Autowired
+	private {{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}Service;
+
 	@GetMapping()
 	@ResponseBody
 	public String index() {
+		{{table.name | to_lower_camel_case}}Service.test();
 		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
 	}
 
 	@GetMapping("/register")
-	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		form.set{{table.name | to_upper_camel_case}}Name("初期表示");
 		//{{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}service;
 		return "{{table.name | to_lower_camel_case}}Register";
 	}
 
+	@PostMapping("/register")
+	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		form.set{{table.name | to_upper_camel_case}}Name("変更したい");
+		//{{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}service;
+		return "{{table.name | to_lower_camel_case}}Register";
+	}
+
+	@PostMapping(path = "/edit", params = "update")
+	public String update(Model model) {
+		return "userEdit";
+	}
+
+	@PostMapping(path = "/edit", params = "delete")
+	public String delete(Model model) {
+		return "userEdit";
+	}
+
 	@GetMapping("/edit")
-	public String edit(Model model) {
+	public String editIndex(Model model) {
 		return "{{table.name | to_lower_camel_case}}Edit";
 	}
 
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String listIndex(Model model) {
 		return "{{table.name | to_lower_camel_case}}List";
 	}
 }

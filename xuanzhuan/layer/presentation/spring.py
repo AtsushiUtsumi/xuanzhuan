@@ -55,9 +55,9 @@ class PresentationSpring(Presentation):
         lower_camel = xz.CaseConverter(table.get('name')).to_lower_camel_case()
 
         # htmlファイル名前設定
-        list_html_file_name = f'{self.templates_root}/{upper_camel}List.html'
-        register_html_file_name = f'{self.templates_root}/{upper_camel}Register.html'
-        edit_html_file_name = f'{self.templates_root}/{upper_camel}Edit.html'
+        list_html_file_name = f'{self.templates_root}/{lower_camel}List.html'
+        register_html_file_name = f'{self.templates_root}/{lower_camel}Register.html'
+        edit_html_file_name = f'{self.templates_root}/{lower_camel}Edit.html'
         # javaファイル名設定
         controller_file_name = f'{self.controller_root}/{upper_camel}Controller.java'
         service_file_name = f'{self.service_root}/{upper_camel}Service.java'
@@ -79,7 +79,7 @@ class PresentationSpring(Presentation):
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service'}, service_file_name)
         # Repositoryクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.domain'}, entity_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)
         # クエリ
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')

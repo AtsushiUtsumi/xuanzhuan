@@ -1,7 +1,7 @@
 <!-- 登録ページ -->
 <title>登録ページ</title>
 <h1>登録ページ</h1>
-<form action="/register" method="post" th:object="${% raw %}{{% endraw %}{{table.name | to_lower_camel_case}}DetailForm}">{% for column in table.columnList %}
+<form method="post" th:object="${% raw %}{{% endraw %}{{table.name | to_lower_camel_case}}DetailForm}">{% for column in table.columnList %}
   <input type="text" th:field="*{% raw %}{{% endraw %}{{column.langName}}}" /><br>{% endfor %}
   <input type="submit" value="submit" />
 </form>

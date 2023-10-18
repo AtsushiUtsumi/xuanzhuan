@@ -1,6 +1,16 @@
 package {{package}};
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class {{table.name | to_upper_camel_case}}Service {public void test() {return;}
+@Service
+public class {{table.name | to_upper_camel_case}}Service {
+
+    @Autowired
+    protected {{table.name | to_upper_camel_case}}Repository {{table.name | to_lower_camel_case}}Repository;
+
+    public void test() {
+        {{table.name | to_lower_camel_case}}Repository.count();
+        return;
+    }
 }

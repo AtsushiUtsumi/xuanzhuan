@@ -3,14 +3,10 @@ package {{package}};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-// 「{{table.name | to_upper_camel_case}}Controller」を「{{table.name | to_upper_camel_case}}Register(index,register)」「{{table.name | to_upper_camel_case}}Edit(index,update,delete)」「{{table.name | to_upper_camel_case}}List(index,search,download)」に分ける方が良いように感じてきた今日この頃...
 
 @Controller
 @RequestMapping("/{{table.name | to_lower_camel_case}}")
@@ -26,37 +22,60 @@ public class {{table.name | to_upper_camel_case}}Controller {
 		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
 	}
 
+	/**
+	 * 登録画面
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/register")
 	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
-		form.set{{table.name | to_upper_camel_case}}Name("初期表示");
-		//{{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}service;
 		return "{{table.name | to_lower_camel_case}}Register";
+	}
+
+	/**
+	 * 詳細画面
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/edit")
+	public String editIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		return "{{table.name | to_lower_camel_case}}Edit";
+	}
+
+	/**
+	 * 一覧画面
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/list")
+	public String listIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		return "{{table.name | to_lower_camel_case}}List";
 	}
 
 	@PostMapping("/register")
 	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
-		form.set{{table.name | to_upper_camel_case}}Name("変更したい");
-		//{{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}service;
+		{{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}} = new {{table.name | to_upper_camel_case}}();
+		{{table.name | to_lower_camel_case}}.set{{table.name | to_upper_camel_case}}Id(form.get{{table.name | to_upper_camel_case}}Id());
+		{{table.name | to_lower_camel_case}}.set{{table.name | to_upper_camel_case}}Name(form.get{{table.name | to_upper_camel_case}}Name());
+		{{table.name | to_lower_camel_case}}Service.register({{table.name | to_lower_camel_case}});
 		return "{{table.name | to_lower_camel_case}}Register";
 	}
 
 	@PostMapping(path = "/edit", params = "update")
-	public String update(Model model) {
-		return "userEdit";
-	}
-
-	@PostMapping(path = "/edit", params = "delete")
-	public String delete(Model model) {
-		return "userEdit";
-	}
-
-	@GetMapping("/edit")
-	public String editIndex(Model model) {
+	public String update({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		{{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}} = new {{table.name | to_upper_camel_case}}();
+		{{table.name | to_lower_camel_case}}.set{{table.name | to_upper_camel_case}}Id(form.get{{table.name | to_upper_camel_case}}Id());
+		{{table.name | to_lower_camel_case}}.set{{table.name | to_upper_camel_case}}Name(form.get{{table.name | to_upper_camel_case}}Name());
+		{{table.name | to_lower_camel_case}}Service.update({{table.name | to_lower_camel_case}});
 		return "{{table.name | to_lower_camel_case}}Edit";
 	}
 
-	@GetMapping("/list")
-	public String listIndex(Model model) {
-		return "{{table.name | to_lower_camel_case}}List";
+	@PostMapping(path = "/edit", params = "delete")
+	public String delete({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+		{{table.name | to_lower_camel_case}}Service.delete(form.get{{table.name | to_upper_camel_case}}Id());
+		return "{{table.name | to_lower_camel_case}}Edit";
 	}
 }

@@ -4,12 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 /**
  * {{table.name | to_upper_camel_case}}
  */
 @Entity
-@Table(name = "{{table.name | to_upper_snake_case}}")
+@Table(name = "{{table.physicalName}}")
+@Data
 public class {{table.name | to_upper_camel_case}} {
 
     @Id

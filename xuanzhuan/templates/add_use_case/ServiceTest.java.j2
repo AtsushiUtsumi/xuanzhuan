@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class {{use_case.function_name | to_upper_camel_case}}ServiceTest {
-    @Test void {{ use_case.description }}() {
+    @Test void {{ use_case.function_name }}() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }

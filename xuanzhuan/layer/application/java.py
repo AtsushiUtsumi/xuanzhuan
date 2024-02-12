@@ -32,7 +32,7 @@ class ApplicationJava(Application):
         package_root = f'com.example.{self._project_name}'
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/Service.java.j2', {'use_case': use_case, 'package': self._project_name}, service_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceCommand.java.j2', {'package': self._project_name}, command_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceCommand.java.j2', {'use_case': use_case, 'package': self._project_name}, command_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceTest.java.j2', {'package': self._project_name, 'use_case': use_case}, test_file_name)
         # subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m "add {table} table")', shell=True, capture_output=True, text=True)
         # 明日にでも使えるようにしたい

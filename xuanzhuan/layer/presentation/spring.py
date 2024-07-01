@@ -2,14 +2,19 @@ import os
 import subprocess
 import xuanzhuan as xz
 
-from xuanzhuan.layer.layer import Presentation
+#from xuanzhuan.layer.layer import Presentation
 from xuanzhuan import create_concrete_from_params
 def create_spring():
 	cmd = 'spring --version'
 	result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
 	print('このマシンにインストールされているSPRINGバージョン情報:' + result.stdout.split('\n')[0])
 	return
-
+class Presentation:
+    def __init__(self):
+        pass
+    def show(self):
+        print('HOGE')
+        return
 class PresentationSpring(Presentation):
     def __init__(self, output_dir, project_name):
         self._project_name = project_name
@@ -24,11 +29,11 @@ class PresentationSpring(Presentation):
         cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        os.mkdir(self.form_root)
-        os.mkdir(self.controller_root)
-        os.mkdir(self.service_root)
-        os.mkdir(self.repository_root)
-        os.mkdir(self.entity_root)
+        os.makedirs(self.form_root, exist_ok=True)
+        os.makedirs(self.controller_root, exist_ok=True)
+        os.makedirs(self.service_root, exist_ok=True)
+        os.makedirs(self.repository_root, exist_ok=True)
+        os.makedirs(self.entity_root, exist_ok=True)
         #subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True)
         return
 

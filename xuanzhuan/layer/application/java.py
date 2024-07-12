@@ -6,11 +6,10 @@ import subprocess
 import xuanzhuan as xz
 
 from pathlib import Path
-from xuanzhuan.layer.layer import Application
 from xuanzhuan import create_concrete_from_params
 from xuanzhuan.layer.application.use_case import UseCase
 
-class ApplicationJava(Application):
+class ApplicationJava:
     def __init__(self, project_name: str, application_root: Path, application_test_root: Path):
         application_root.mkdir(parents=True, exist_ok=True)
         print(application_test_root)

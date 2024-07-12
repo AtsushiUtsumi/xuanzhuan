@@ -1,5 +1,4 @@
 import os
-from xuanzhuan.layer.layer import Presentation
 from xuanzhuan import create_concrete_from_params
 
 # ここでアプリケーション層「UseCase」をしてのimport は避けた方が良い気がする「UseCase」
@@ -38,7 +37,7 @@ pro="""
 
 # CLIのプレゼンテーション層を作成する、といってもCLIなのでコマンドラインに機能を呼び出す関数を追加するだけ
 # アプリケーション層のディレクトリからメソッドをスキャンする機能をつけてもいいかも。
-class PresentationCliJava(Presentation):
+class PresentationCliJava:
     def __init__(self, output_dir, project_name):
         self._project_name = project_name
         self.project_root = f'{output_dir}/{project_name}'

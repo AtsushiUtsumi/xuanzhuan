@@ -2,7 +2,6 @@ import os
 import subprocess
 import xuanzhuan as xz
 
-#from xuanzhuan.layer.layer import Presentation
 from xuanzhuan import create_concrete_from_params
 def create_spring():
 	cmd = 'spring --version'

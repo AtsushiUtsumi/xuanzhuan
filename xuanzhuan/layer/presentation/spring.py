@@ -15,17 +15,21 @@ class Presentation:
         print('HOGE')
         return
 class PresentationSpring(Presentation):
-    def __init__(self, output_dir, project_name):
+    def __init__(self, output_dir, project_name, package_root: str):
         self._project_name = project_name
+        self._package_root = package_root
+        package_path = self._package_root.replace('.', '/')
         self.project_root = f'{output_dir}/{project_name}'
-        self.repository_root = f'{self.project_root}/src/main/java/com/example/{project_name}/domain'
-        self.entity_root = f'{self.project_root}/src/main/java/com/example/{project_name}/entity'
-        self.service_root = f'{self.project_root}/src/main/java/com/example/{project_name}/service'
-        self.service_root = f'{self.project_root}/src/test/java/com/example/{project_name}/service'
-        self.controller_root = f'{self.project_root}/src/main/java/com/example/{project_name}/controller'
-        self.form_root = f'{self.project_root}/src/main/java/com/example/{project_name}/form'
+        self.repository_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/domain'
+        self.entity_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/entity'
+        self.service_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/service'
+        self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/service'
+        self.controller_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
+        self.form_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/form'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
-        cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
+        # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
+        # いったんMavenプロジェクトに変更
+        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,lombok --build=maven -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
         os.makedirs(self.form_root, exist_ok=True)
@@ -43,7 +47,7 @@ class PresentationSpring(Presentation):
         lower_camel = xz.CaseConverter(screen_name).to_lower_camel_case()
         controller_file_name = f'{self.controller_root}/{upper_camel}Controller.java'
         form_file_name = f'{self.controller_root}/{upper_camel}Form.java'
-        package = f'com.example.{self._project_name}.controller'
+        package = f'{self._package_root}.{self._project_name}.controller'
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/Controller.java.j2', {'name': screen_name, 'package': package}, controller_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/Form.java.j2', {'name': screen_name, 'package': package}, form_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/list.html.j2', {'name': screen_name}, f'{self.templates_root}/{lower_camel}List.html')
@@ -71,23 +75,26 @@ class PresentationSpring(Presentation):
         entity_file_name = f'{self.entity_root}/{upper_camel}.java'
         repository_file_name = f'{self.repository_root}/{upper_camel}Repository.java'
 
-        package_root = f'com.example.{self._project_name}'
+        package_root = f'{self._package_root}.{self._project_name}'
+        import_dict = dict()
+        import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{upper_camel}Service'
+
         # HTML
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/register.html.j2', {'table': table}, register_html_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/register.html.j2', {'table': table}, register_html_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
         # Formクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller'}, list_form_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller'}, detail_form_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller'}, list_form_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller'}, detail_form_file_name)
         # Controllerクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller'}, controller_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller', 'import_dict': import_dict}, controller_file_name)
         # Serviceクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service'}, service_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service', 'import_dict': import_dict}, service_file_name)
         # Repositoryクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)
         # クエリ
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')
+        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')
         #subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m {table}テーブル作成)', shell=True, capture_output=True, text=True)
         return
     
@@ -100,10 +107,11 @@ class PresentationSpring(Presentation):
         service_file_name = f'{self.service_root}/{upper_camel}ApplicationService.java'
         command_file_name = f'{self.service_root}/{upper_camel}ServiceCommand.java'
         test_file_name = f'{self.service_root}/{upper_camel}ServiceTest.java'
-        package_root = f'com.example.{self._project_name}'
+        package_root = f'{self._package_root}.{self._project_name}'
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/Service.java.j2', {'table': table, 'package': package_root+'.service'}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceCommand.java.j2', {'table': table, 'package': package_root+'.service'}, command_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceTest.java.j2', {'table': table, 'package': package_root+'.service'}, test_file_name)
-        subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m "add {table} table")', shell=True, capture_output=True, text=True)
+        # Gitでコミット
+        # subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m "add {table} table")', shell=True, capture_output=True, text=True)
         return

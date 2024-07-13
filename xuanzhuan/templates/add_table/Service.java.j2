@@ -6,25 +6,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class {{table.name | to_upper_camel_case}}Service {
 
-    @Autowired
-    protected {{table.name | to_upper_camel_case}}Repository {{table.name | to_lower_camel_case}}Repository;
+    // @Autowired
+    // private {{table.name | to_upper_camel_case}}Repository {{table.name | to_lower_camel_case}}Repository;
 
     public void test() {
-        {{table.name | to_lower_camel_case}}Repository.count();
+        // {{table.name | to_lower_camel_case}}Repository.count();
         return;
     }
 
-    public void register({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
-        {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
-        return;
-    }
+    // public void register({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
+    //     {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
+    //     return;
+    // }
 
-    public void update({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
-        {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
-        return;
-    }
+    // public void update({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
+    //     {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
+    //     return;
+    // }
 
-    public void delete(Integer id) {
-        {{table.name | to_lower_camel_case}}Repository.deleteById(id);
-    }
+    // public void delete(Integer id) {
+    //     {{table.name | to_lower_camel_case}}Repository.deleteById(id);
+    // }
 }

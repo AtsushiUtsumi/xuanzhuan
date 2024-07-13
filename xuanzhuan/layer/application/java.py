@@ -28,7 +28,7 @@ class ApplicationJava:
         service_file_name = f'{self.service_root}/{upper_camel}Service.java'
         command_file_name = f'{self.service_root}/{upper_camel}Command.java'
         test_file_name = f'{self.service_test_root}/{upper_camel}ServiceTest.java'
-        package_root = f'com.example.{self._project_name}'
+        package_root = f'{self._package_root}.{self._project_name}'
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/Service.java.j2', {'use_case': use_case, 'package': self._project_name}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceCommand.java.j2', {'use_case': use_case, 'package': self._project_name}, command_file_name)

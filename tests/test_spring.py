@@ -13,6 +13,19 @@ def test_create_spring():
     table = dict()
     table["name"] = 'user'
     table["tableName"] = 'user'
-    table["columnList"] = ['hoge','fuga']
+    table["columnList"] = [
+        {
+            "langType": "LocalDate",
+            "langName": "registerDateFrom",
+            "dbType": "Timestamp",
+            "dbName": "REGISTER_DATE_FROM"
+        },
+        {
+            "langType": "LocalDate",
+            "langName": "registerDateTo",
+            "dbType": "Timestamp",
+            "dbName": "REGISTER_DATE_TO"
+        }
+    ]
     spring.add_table(table=table)
     return

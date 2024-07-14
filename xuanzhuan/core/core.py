@@ -58,6 +58,7 @@ def create_concrete_from_params(template_file_name: str, params: dict, output_fi
     # テンプレートファイル読み込み
     if not os.path.isfile(template_file_name):
         print('テンプレートファイル[' + template_file_name + ']が見つかりませんでした')
+    os.makedirs(output_file_name[:output_file_name.rfind('/')], exist_ok=True)
     sep = template_file_name.rfind('/')
     dir = template_file_name[:sep]
     file_name = template_file_name[sep+1:]

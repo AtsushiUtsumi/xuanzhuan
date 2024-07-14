@@ -16,6 +16,7 @@ class Presentation:
         return
 class PresentationSpring(Presentation):
     def __init__(self, output_dir, project_name, package_root: str):
+        os.makedirs(output_dir, exist_ok=True)
         self._project_name = project_name
         self._package_root = package_root
         package_path = self._package_root.replace('.', '/')
@@ -29,7 +30,7 @@ class PresentationSpring(Presentation):
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
         # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # いったんMavenプロジェクトに変更
-        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,lombok --build=maven -n=' + project_name + ' ' + project_name + ')'
+        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,thymeleaf,lombok --build=maven -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
         os.makedirs(self.form_root, exist_ok=True)
@@ -37,7 +38,7 @@ class PresentationSpring(Presentation):
         os.makedirs(self.service_root, exist_ok=True)
         os.makedirs(self.repository_root, exist_ok=True)
         os.makedirs(self.entity_root, exist_ok=True)
-        #subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True)
+        subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True)
         return
 
     def add_screen(self, screen_name):
@@ -64,32 +65,32 @@ class PresentationSpring(Presentation):
         lower_camel = xz.CaseConverter(table.get('name')).to_lower_camel_case()
 
         # htmlファイル名前設定
-        list_html_file_name = f'{self.templates_root}/{lower_camel}List.html'
-        register_html_file_name = f'{self.templates_root}/{lower_camel}Register.html'
-        edit_html_file_name = f'{self.templates_root}/{lower_camel}Edit.html'
+        list_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}List.html'
+        register_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}Register.html'
+        edit_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}Edit.html'
         # javaファイル名設定
-        controller_file_name = f'{self.controller_root}/{upper_camel}Controller.java'
-        service_file_name = f'{self.service_root}/{upper_camel}Service.java'
-        list_form_file_name = f'{self.controller_root}/{upper_camel}ListForm.java'
-        detail_form_file_name = f'{self.controller_root}/{upper_camel}DetailForm.java'
-        entity_file_name = f'{self.entity_root}/{upper_camel}.java'
-        repository_file_name = f'{self.repository_root}/{upper_camel}Repository.java'
+        controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}Controller.java'
+        service_file_name = f'{self.service_root}/{lower_camel}/{upper_camel}Service.java'
+        list_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListForm.java'
+        detail_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailForm.java'
+        entity_file_name = f'{self.entity_root}/{lower_camel}/{upper_camel}.java'
+        repository_file_name = f'{self.repository_root}/{lower_camel}/{upper_camel}Repository.java'
 
         package_root = f'{self._package_root}.{self._project_name}'
         import_dict = dict()
-        import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{upper_camel}Service'
+        import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{lower_camel}.{upper_camel}Service'
 
         # HTML
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/register.html.j2', {'table': table}, register_html_file_name)
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/register.html.j2', {'table': table}, register_html_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
         # Formクラス
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller'}, list_form_file_name)
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller'}, detail_form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, list_form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, detail_form_file_name)
         # Controllerクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller', 'import_dict': import_dict}, controller_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, controller_file_name)
         # Serviceクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service', 'import_dict': import_dict}, service_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_file_name)
         # Repositoryクラス
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)

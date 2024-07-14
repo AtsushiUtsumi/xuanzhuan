@@ -30,10 +30,10 @@ public class {{table.name | to_upper_camel_case}}Controller {
 	 * @param model
 	 * @return
 	 */
-//	@GetMapping("/register")
-//	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
-//		return "{{table.name | to_lower_camel_case}}Register";
-//	}
+  	@GetMapping("/register")
+  	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
+  	}
 //
 //	/**
 //	 * 詳細画面

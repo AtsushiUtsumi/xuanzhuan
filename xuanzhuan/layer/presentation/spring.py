@@ -71,6 +71,7 @@ class PresentationSpring(Presentation):
         # javaファイル名設定
         controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}Controller.java'
         service_file_name = f'{self.service_root}/{lower_camel}/{upper_camel}Service.java'
+        service_test_file_name = f'{self.service_test_root}/{lower_camel}/{upper_camel}ServiceTest.java'
         list_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListForm.java'
         detail_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailForm.java'
         entity_file_name = f'{self.entity_root}/{lower_camel}/{upper_camel}.java'
@@ -91,6 +92,7 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, controller_file_name)
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ServiceTest.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_test_file_name)
         # Repositoryクラス
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)

@@ -1,0 +1,27 @@
+package {{package}};
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class {{table.name | to_upper_camel_case}}ServiceTest {
+
+    @Autowired
+    private {{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}Service;
+
+    @Test
+    public void 登録テスト() {
+        assert true;
+    }
+
+    @Test
+    public void 更新テスト() {
+        assert true;
+    }
+
+    @Test
+    public void 削除テスト() {
+        assert true;
+    }
+}

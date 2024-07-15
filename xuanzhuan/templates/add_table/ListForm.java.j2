@@ -1,1 +1,15 @@
-// {{package}}
+package {{package}};
+
+import java.util.List;
+
+import lombok.Data;
+
+@Data
+class {{table.name | to_upper_camel_case}}ListForm {
+
+    // 検索条件{% for column in table.columnList %}
+    private String {{column.langName}};
+{% endfor %}
+    private List<{{table.name | to_upper_camel_case}}ListRow> rows;
+}
+

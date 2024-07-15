@@ -26,6 +26,7 @@ public class {{table.name | to_upper_camel_case}}Controller {
 
 	/**
 	 * 登録画面
+	 * 
 	 * @param form
 	 * @param model
 	 * @return
@@ -34,6 +35,34 @@ public class {{table.name | to_upper_camel_case}}Controller {
   	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
   		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
   	}
+
+  	@PostMapping("/register")
+  	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
+  	}
+
+	/**
+	 * 編集画面
+	 * 
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+  	@GetMapping("/edit")
+  	public String editIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+
+  	@PostMapping(path = "/edit", params="update")
+  	public String update({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+
+  	@PostMapping(path = "/edit", params="delete")
+  	public String delete({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+
 //
 //	/**
 //	 * 詳細画面
@@ -81,3 +110,4 @@ public class {{table.name | to_upper_camel_case}}Controller {
 //		return "{{table.name | to_lower_camel_case}}Edit";
 //	}
 }
+

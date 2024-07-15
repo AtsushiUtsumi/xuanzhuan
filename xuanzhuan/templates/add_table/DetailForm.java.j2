@@ -1,12 +1,14 @@
 package {{package}};
 
-import java.time.LocalDate;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 class {{table.name | to_upper_camel_case}}DetailForm {
 {% for column in table.columnList %}
-    private {{column.langType}} {{column.langName}};
+    private String {{column.langName}};
 {% endfor %}
+    private List<{{table.name | to_upper_camel_case}}DetailRow> rows;
 }
+

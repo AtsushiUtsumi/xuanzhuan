@@ -1,15 +1,8 @@
 <!-- 編集ページ -->
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>編集ページ</title>
-</head>
-<body>
-    <form action="/user/edit" method="post">
-        <input type="submit" value="更新" name="update">
-        <input type="submit" value="削除" name="delete">
-    </form>
-</body>
-</html>
+<title>編集ページ</title>
+<h1>編集ページ</h1>
+<form th:action="@{/{{table.name | to_lower_camel_case}}/edit}" method="post" th:object="${% raw %}{{% endraw %}{{table.name | to_lower_camel_case}}DetailForm}">{% for column in table.columnList %}
+  <input type="text" th:field="*{% raw %}{{% endraw %}{{column.langName}}}" /><br>{% endfor %}
+  <input type="submit" value="更新" name="update"><br>
+  <input type="submit" value="削除" name="delete"><br>
+</form>

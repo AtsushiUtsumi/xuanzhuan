@@ -26,7 +26,7 @@ class PresentationSpring(Presentation):
         self.service_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/service'
         self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/service'
         self.controller_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
-        self.form_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/form'
+        self.form_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
         # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # いったんMavenプロジェクトに変更
@@ -73,7 +73,9 @@ class PresentationSpring(Presentation):
         service_file_name = f'{self.service_root}/{lower_camel}/{upper_camel}Service.java'
         service_test_file_name = f'{self.service_test_root}/{lower_camel}/{upper_camel}ServiceTest.java'
         list_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListForm.java'
+        list_row_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListRow.java'
         detail_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailForm.java'
+        detail_row_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailRow.java'
         entity_file_name = f'{self.entity_root}/{lower_camel}/{upper_camel}.java'
         repository_file_name = f'{self.repository_root}/{lower_camel}/{upper_camel}Repository.java'
 
@@ -87,7 +89,9 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/edit.html.j2', {'table': table}, edit_html_file_name)
         # Formクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListForm.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, list_form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListRow.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, list_row_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailForm.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, detail_form_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailRow.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, detail_row_file_name)
         # Controllerクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Controller.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, controller_file_name)
         # Serviceクラス

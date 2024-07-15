@@ -1,0 +1,14 @@
+package {{package}};
+
+import lombok.Data;
+
+/**
+ * 明細行のデータクラス(不要な場合は削除して下さい)
+ */
+@Data
+class {{table.name | to_upper_camel_case}}DetailRow {
+{% for column in table.columnList %}
+    private String {{column.langName}};
+{% endfor %}
+}
+

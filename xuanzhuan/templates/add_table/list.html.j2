@@ -1,9 +1,14 @@
 <!-- 一覧ページ -->
 <title>一覧ページ</title>
 <h1>一覧ページ</h1>
-<form th:action="@{/{{table.name | to_lower_camel_case}}/list}" method="post" th:object="${% raw %}{{% endraw %}{{table.name | to_lower_camel_case}}ListForm}">{% for column in table.columnList %}
-  <input type="text" th:field="*{% raw %}{{% endraw %}{{column.langName}}}" /><br>{% endfor %}
+<form th:action="@{/{{table.name | to_lower_camel_case}}/list}" method="post" th:object="${% raw %}{{% endraw %}{{table.name | to_lower_camel_case}}ListForm}">
+  <table>
+    <tr>{% for column in table.columnList %}
+      <td><span th:text="#{label.{{column.langName}}}"></span><input type="text" th:field="*{% raw %}{{% endraw %}{{column.langName}}}" /></td>{% endfor %}
+    <tr>
+  </table>
   <input type="submit" value="検索" name="search"/><br>
   <span>ページネーション</span><br>
   <span>検索結果</span><br>
 </form>
+

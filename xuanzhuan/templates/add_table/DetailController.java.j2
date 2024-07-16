@@ -1,0 +1,66 @@
+package {{package}};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+{% set key=table.name | to_upper_camel_case + "Service" %}import {{import_dict[key]}};
+
+@Controller
+@RequestMapping("/{{table.name | to_lower_camel_case}}")
+public class {{table.name | to_upper_camel_case}}DetailController {
+
+	@Autowired
+	private {{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}Service;
+
+	@GetMapping()
+	@ResponseBody
+	public String index() {
+		{{table.name | to_lower_camel_case}}Service.test();
+		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
+	}
+
+	/**
+	 * 登録画面
+	 * 
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+  	@GetMapping("/register")
+  	public String registerIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
+  	}
+
+  	@PostMapping("/register")
+  	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
+  	}
+
+	/**
+	 * 編集画面
+	 * 
+	 * @param form
+	 * @param model
+	 * @return
+	 */
+  	@GetMapping("/edit")
+  	public String editIndex({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+
+  	@PostMapping(path = "/edit", params="update")
+  	public String update({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+
+  	@PostMapping(path = "/edit", params="delete")
+  	public String delete({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+  		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
+  	}
+}
+

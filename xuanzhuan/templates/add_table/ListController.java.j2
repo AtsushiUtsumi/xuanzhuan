@@ -25,7 +25,7 @@ public class {{table.name | to_upper_camel_case}}ListController {
 	 * @return
 	 */
 	@GetMapping()
-	public String index(UserListForm form, Model model) {
+	public String index({{table.name | to_upper_camel_case}}ListForm form, Model model) {
 		return OWN_PAGE;
 	}
 
@@ -37,9 +37,9 @@ public class {{table.name | to_upper_camel_case}}ListController {
 	 * @return
 	 */
 	@PostMapping(params = "search")
-	public String search(UserListForm form, Model model) {
+	public String search({{table.name | to_upper_camel_case}}ListForm form, Model model) {
 
-		// List<User> resultList = userRepository.findAll(SearchParams searchParams);
+		// List<{{table.name | to_upper_camel_case}}> resultList = {{table.name | to_upper_camel_case}}Repository.findAll(SearchParams searchParams);
 
 		return OWN_PAGE;
 	}

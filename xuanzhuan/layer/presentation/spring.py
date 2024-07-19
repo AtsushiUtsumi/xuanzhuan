@@ -22,6 +22,7 @@ class PresentationSpring(Presentation):
         package_path = self._package_root.replace('.', '/')
         self.project_root = f'{output_dir}/{project_name}'
         self.repository_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/domain'
+        self.dao_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/dao'
         self.entity_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/entity'
         self.service_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/service'
         self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/service'
@@ -30,13 +31,14 @@ class PresentationSpring(Presentation):
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
         # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # いったんMavenプロジェクトに変更
-        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,thymeleaf,lombok --build=maven -n=' + project_name + ' ' + project_name + ')'
+        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,thymeleaf,lombok,h2,data-jpa --build=maven -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
         os.makedirs(self.form_root, exist_ok=True)
         os.makedirs(self.controller_root, exist_ok=True)
         os.makedirs(self.service_root, exist_ok=True)
         os.makedirs(self.repository_root, exist_ok=True)
+        os.makedirs(self.dao_root, exist_ok=True)
         os.makedirs(self.entity_root, exist_ok=True)
         subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True)
         return
@@ -68,7 +70,7 @@ class PresentationSpring(Presentation):
         list_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}List.html'
         register_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}Register.html'
         edit_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}Edit.html'
-        # javaファイル名設定
+        # javaファイル名設定(「パッケージルート + パッケージをスラッシュ区切りにしたもの + クラス名 + .java」のほうがよさそう)
         list_controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListController.java'
         detail_controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailController.java'
         service_file_name = f'{self.service_root}/{lower_camel}/{upper_camel}Service.java'
@@ -77,11 +79,19 @@ class PresentationSpring(Presentation):
         list_row_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListRow.java'
         detail_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailForm.java'
         detail_row_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailRow.java'
-        entity_file_name = f'{self.entity_root}/{lower_camel}/{upper_camel}.java'
-        repository_file_name = f'{self.repository_root}/{lower_camel}/{upper_camel}Repository.java'
+        # entity_file_name = f'{self.entity_root}/{lower_camel}/{upper_camel}.java'
+        # repository_file_name = f'{self.repository_root}/{lower_camel}/{upper_camel}Repository.java'
+        # いったんDAO使うパターンで作成する
+        crud_entity_file_name = f'{self.dao_root}/crud/{lower_camel}/{upper_camel}.java'
+        crud_dao_file_name = f'{self.dao_root}/crud/{lower_camel}/{upper_camel}Dao.java'
+        search_entity_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}FindEntity.java'
+        search_dao_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}FindDao.java'
 
         package_root = f'{self._package_root}.{self._project_name}'
+        # importするときどのパッケージのどのクラスをimportするかを登録しておく(「UserRepository」といえば「com.example.domain.repository.UserRepository」をimportすれば良い)
         import_dict = dict()
+        import_dict[f'{upper_camel}'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}'
+        import_dict[f'{upper_camel}Dao'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}Dao'
         import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{lower_camel}.{upper_camel}Service'
 
         # HTML
@@ -100,8 +110,10 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ServiceTest.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_test_file_name)
         # Repositoryクラス
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Entity.java.j2', {'table': table, 'package': package_root+'.entity'}, entity_file_name)
-        # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Repository.java.j2', {'table': table, 'package': package_root+'.domain'}, repository_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudEntity.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel}, crud_entity_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudDao.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel}, crud_dao_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchEntity.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_entity_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchDao.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_dao_file_name)
         # クエリ
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')
         #subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m {table}テーブル作成)', shell=True, capture_output=True, text=True)

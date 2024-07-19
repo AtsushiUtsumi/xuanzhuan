@@ -3,28 +3,31 @@ package {{package}};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+{% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
+{% set key=table.name | to_upper_camel_case + "Dao" %}import {{import_dict[key]}};
+
 @Service
 public class {{table.name | to_upper_camel_case}}Service {
 
-    // @Autowired
-    // private {{table.name | to_upper_camel_case}}Repository {{table.name | to_lower_camel_case}}Repository;
+    @Autowired
+    private {{table.name | to_upper_camel_case}}Dao {{table.name | to_lower_camel_case}}Dao;
 
-    public void test() {
-        // {{table.name | to_lower_camel_case}}Repository.count();
+    public boolean exists(Integer id) {
+        return false;
+    }
+
+    public void register({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
+        {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
         return;
     }
 
-    // public void register({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
-    //     {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
-    //     return;
-    // }
+    public void update({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
+        {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
+        return;
+    }
 
-    // public void update({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
-    //     {{table.name | to_lower_camel_case}}Repository.save({{table.name | to_lower_camel_case}});
-    //     return;
-    // }
-
-    // public void delete(Integer id) {
-    //     {{table.name | to_lower_camel_case}}Repository.deleteById(id);
-    // }
+    public void delete({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
+        {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
+        return;
+    }
 }

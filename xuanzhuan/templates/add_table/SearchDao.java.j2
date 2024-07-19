@@ -1,0 +1,6 @@
+package {{package}};
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface {{table.name | to_upper_camel_case}}FindDao extends JpaRepository<{{table.name | to_upper_camel_case}}FindEntity, Integer>{
+}

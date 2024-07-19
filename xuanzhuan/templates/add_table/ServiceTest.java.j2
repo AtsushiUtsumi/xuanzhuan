@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+{% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
+
 @SpringBootTest
 public class {{table.name | to_upper_camel_case}}ServiceTest {
 
@@ -12,16 +14,29 @@ public class {{table.name | to_upper_camel_case}}ServiceTest {
 
     @Test
     public void 登録テスト() {
+        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
+        entity.set{{table.name | to_upper_camel_case}}Id(777);
+        entity.set{{table.name | to_upper_camel_case}}Name("HOGE");
+        {{table.name | to_lower_camel_case}}Service.register(entity);
         assert true;
     }
 
     @Test
     public void 更新テスト() {
+        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
+        entity.set{{table.name | to_upper_camel_case}}Id(777);
+        entity.set{{table.name | to_upper_camel_case}}Name("FUGA");
+        {{table.name | to_lower_camel_case}}Service.update(entity);
         assert true;
     }
 
     @Test
     public void 削除テスト() {
+        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
+        entity.set{{table.name | to_upper_camel_case}}Id(777);
+        entity.set{{table.name | to_upper_camel_case}}Name("FUGA");
+        {{table.name | to_lower_camel_case}}Service.delete(entity);
         assert true;
     }
 }
+

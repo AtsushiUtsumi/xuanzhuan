@@ -1,0 +1,23 @@
+package {{package}};
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+/**
+ * {{table.name | to_upper_camel_case}}
+ */
+@Entity
+@Table(name = "{{table.physicalName}}")
+@Data
+public class {{table.name | to_upper_camel_case}}FindEntity {
+
+    @Id
+    @Column(name = "{{table.name | to_upper_snake_case}}_ID")
+    private Integer {{table.name | to_lower_camel_case}}Id;
+
+    @Column(name = "{{table.name | to_upper_snake_case}}_NAME")
+    private String {{table.name | to_lower_camel_case}}Name;
+}

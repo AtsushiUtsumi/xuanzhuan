@@ -1,0 +1,37 @@
+package {{package}};
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class {{table.name | to_upper_camel_case}}Dao {
+
+    public void insert({{table.name | to_upper_camel_case}} entity){
+        return;
+    }
+
+    public void update({{table.name | to_upper_camel_case}} entity){
+        return;
+    }
+
+    public void delete({{table.name | to_upper_camel_case}} entity){
+        return;
+    }
+
+    public void deleteById(Integer id){
+        return;
+    }
+
+    public {{table.name | to_upper_camel_case}} findById(Integer id){
+        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
+        return entity;
+    }
+
+    public List<{{table.name | to_upper_camel_case}}> findAll(){
+        List<{{table.name | to_upper_camel_case}}> entityList = new ArrayList<>();
+        return entityList;
+    }
+}
+

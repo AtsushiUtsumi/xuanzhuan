@@ -20,7 +20,6 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 	@GetMapping()
 	@ResponseBody
 	public String index() {
-		{{table.name | to_lower_camel_case}}Service.test();
 		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
 	}
 

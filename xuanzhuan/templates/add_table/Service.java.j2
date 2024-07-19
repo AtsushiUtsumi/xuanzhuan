@@ -2,6 +2,8 @@ package {{package}};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 {% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
 {% set key=table.name | to_upper_camel_case + "Dao" %}import {{import_dict[key]}};
@@ -16,18 +18,22 @@ public class {{table.name | to_upper_camel_case}}Service {
         return false;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void register({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
         {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void update({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
         {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void delete({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
         {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
         return;
     }
 }
+

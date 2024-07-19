@@ -4,31 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class {{table.name | to_upper_camel_case}}Dao {
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void insert({{table.name | to_upper_camel_case}} entity){
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void update({{table.name | to_upper_camel_case}} entity){
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void delete({{table.name | to_upper_camel_case}} entity){
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void deleteById(Integer id){
         return;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public {{table.name | to_upper_camel_case}} findById(Integer id){
         {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
         return entity;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public List<{{table.name | to_upper_camel_case}}> findAll(){
         List<{{table.name | to_upper_camel_case}}> entityList = new ArrayList<>();
         return entityList;

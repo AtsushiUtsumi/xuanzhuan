@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+{% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
 {% set key=table.name | to_upper_camel_case + "Service" %}import {{import_dict[key]}};
 
 @Controller
@@ -37,6 +38,7 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 
   	@PostMapping("/register")
   	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+	    {{table.name | to_lower_camel_case}}Service.register(new {{table.name | to_upper_camel_case}}());
   		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
   	}
 
@@ -54,11 +56,13 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 
   	@PostMapping(path = "/edit", params="update")
   	public String update({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+	    {{table.name | to_lower_camel_case}}Service.update(new {{table.name | to_upper_camel_case}}());
   		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
   	}
 
   	@PostMapping(path = "/edit", params="delete")
   	public String delete({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+	    {{table.name | to_lower_camel_case}}Service.delete(new {{table.name | to_upper_camel_case}}());
   		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit";
   	}
 }

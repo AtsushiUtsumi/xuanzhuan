@@ -27,6 +27,7 @@ class PresentationSpring(Presentation):
         self.service_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/service'
         self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/service'
         self.controller_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
+        self.controller_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/controller'
         self.form_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
         # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
@@ -72,7 +73,9 @@ class PresentationSpring(Presentation):
         edit_html_file_name = f'{self.templates_root}/{lower_camel}/{lower_camel}Edit.html'
         # javaファイル名設定(「パッケージルート + パッケージをスラッシュ区切りにしたもの + クラス名 + .java」のほうがよさそう)
         list_controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListController.java'
+        list_controller_test_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListControllerTest.java'# TODO: 一覧画面のテストクラスはまた今度
         detail_controller_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}DetailController.java'
+        detail_controller_test_file_name = f'{self.controller_test_root}/{lower_camel}/{upper_camel}DetailControllerTest.java'
         service_file_name = f'{self.service_root}/{lower_camel}/{upper_camel}Service.java'
         service_test_file_name = f'{self.service_test_root}/{lower_camel}/{upper_camel}ServiceTest.java'
         list_form_file_name = f'{self.controller_root}/{lower_camel}/{upper_camel}ListForm.java'
@@ -105,7 +108,9 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailRow.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel}, detail_row_file_name)
         # Controllerクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ListController.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, list_controller_file_name)
+        # TODO: 一覧画面のテストクラスはまた今度
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailController.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, detail_controller_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/DetailControllerTest.java.j2', {'table': table, 'package': package_root+'.controller.' + lower_camel, 'import_dict': import_dict}, detail_controller_test_file_name)
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ServiceTest.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_test_file_name)

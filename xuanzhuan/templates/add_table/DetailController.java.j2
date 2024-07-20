@@ -24,6 +24,11 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
 	}
 
+	// 入力チェック
+	private boolean inputCheck({{table.name | to_upper_camel_case}}DetailForm form) {
+		return form != null;
+	}
+
 	/**
 	 * 登録画面
 	 * 

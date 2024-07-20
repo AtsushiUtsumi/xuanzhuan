@@ -1,0 +1,45 @@
+package {{package}};
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class {{table.name | to_upper_camel_case}}DetailControllerTest {
+
+    @Autowired
+    private {{table.name | to_upper_camel_case}}DetailController {{table.name | to_lower_camel_case}}DetailController;
+
+    private MockMvc mockMvc;
+
+    @Autowired
+    private {{table.name | to_upper_camel_case}}DetailController target;
+
+    @Test
+    public void 初期表示() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(target).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/{{table.name | to_lower_camel_case}}/edit"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Edit"));
+    }
+
+    @Test
+    public void 入力チェック() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
+        Method method = {{table.name | to_upper_camel_case}}DetailController.class.getDeclaredMethod("inputCheck", {{table.name | to_upper_camel_case}}DetailForm.class);
+        method.setAccessible(true);
+
+        final boolean actual = (boolean) method.invoke({{table.name | to_lower_camel_case}}DetailController, new {{table.name | to_upper_camel_case}}DetailForm());
+
+        assert (actual == true);
+    }
+}
+

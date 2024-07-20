@@ -87,14 +87,18 @@ class PresentationSpring(Presentation):
         # いったんDAO使うパターンで作成する
         crud_entity_file_name = f'{self.dao_root}/crud/{lower_camel}/{upper_camel}.java'
         crud_dao_file_name = f'{self.dao_root}/crud/{lower_camel}/{upper_camel}Dao.java'
-        search_entity_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}FindEntity.java'
-        search_dao_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}FindDao.java'
+        search_entity_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}SearchEntity.java'
+        search_dao_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}SearchDao.java'
+        search_params_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}SearchParams.java'
 
         package_root = f'{self._package_root}.{self._project_name}'
         # importするときどのパッケージのどのクラスをimportするかを登録しておく(「UserRepository」といえば「com.example.domain.repository.UserRepository」をimportすれば良い)
         import_dict = dict()
         import_dict[f'{upper_camel}'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}'
         import_dict[f'{upper_camel}Dao'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}Dao'
+        import_dict[f'{upper_camel}SearchEntity'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchEntity'
+        import_dict[f'{upper_camel}SearchDao'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchDao'
+        import_dict[f'{upper_camel}SearchParams'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchParams'
         import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{lower_camel}.{upper_camel}Service'
 
         # HTML
@@ -119,6 +123,7 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudDao.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel}, crud_dao_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchEntity.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_entity_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchDao.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_dao_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchParams.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel, 'import_dict': import_dict}, search_params_file_name)
         # クエリ
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')
         #subprocess.run(f'(cd {self.project_root}) && (git add --all) && (git commit -m {table}テーブル作成)', shell=True, capture_output=True, text=True)

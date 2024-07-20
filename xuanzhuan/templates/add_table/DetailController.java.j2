@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 {% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
 {% set key=table.name | to_upper_camel_case + "Service" %}import {{import_dict[key]}};
@@ -17,12 +16,6 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 
 	@Autowired
 	private {{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}Service;
-
-	@GetMapping()
-	@ResponseBody
-	public String index() {
-		return "クソみたいな仕事による、クソみたいな仕事のため、クソみたいな仕事";
-	}
 
 	// 入力チェック
 	private boolean inputCheck({{table.name | to_upper_camel_case}}DetailForm form) {
@@ -43,7 +36,13 @@ public class {{table.name | to_upper_camel_case}}DetailController {
 
   	@PostMapping("/register")
   	public String register({{table.name | to_upper_camel_case}}DetailForm form, Model model) {
+
+	    if (!inputCheck(form)) {
+		    return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
+		}
+
 	    {{table.name | to_lower_camel_case}}Service.register(new {{table.name | to_upper_camel_case}}());
+
   		return "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}Register";
   	}
 

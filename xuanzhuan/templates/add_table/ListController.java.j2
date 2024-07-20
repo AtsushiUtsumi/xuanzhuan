@@ -1,5 +1,7 @@
 package {{package}};
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-// {% set key=table.name | to_upper_camel_case + "Repository" %}import {{import_dict[key]}};
+{% set key=table.name | to_upper_camel_case + "SearchEntity" %}import {{import_dict[key]}};
+{% set key=table.name | to_upper_camel_case + "SearchDao" %}import {{import_dict[key]}};
+{% set key=table.name | to_upper_camel_case + "SearchParams" %}import {{import_dict[key]}};
 
 @Controller
 @RequestMapping("/{{table.name | to_lower_camel_case}}/list")
@@ -16,8 +20,8 @@ public class {{table.name | to_upper_camel_case}}ListController {
 
 	final String OWN_PAGE = "{{table.name | to_lower_camel_case}}/{{table.name | to_lower_camel_case}}List";
 
-	// @Autowired
-	// private {{table.name | to_upper_camel_case}}Repository {{table.name | to_lower_camel_case}}Repository;// DAOに変更する
+	@Autowired
+	private {{table.name | to_upper_camel_case}}SearchDao {{table.name | to_lower_camel_case}}SearchDao;
 
 	/**
 	 * 初期表示
@@ -39,7 +43,7 @@ public class {{table.name | to_upper_camel_case}}ListController {
 	@PostMapping(params = "search")
 	public String search({{table.name | to_upper_camel_case}}ListForm form, Model model) {
 
-		// List<{{table.name | to_upper_camel_case}}> resultList = {{table.name | to_upper_camel_case}}Repository.findAll(SearchParams searchParams);
+		List<{{table.name | to_upper_camel_case}}SearchEntity> resultList = {{table.name | to_lower_camel_case}}SearchDao.search(new {{table.name | to_upper_camel_case}}SearchParams());
 
 		return OWN_PAGE;
 	}

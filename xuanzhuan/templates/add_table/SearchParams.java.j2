@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class {{table.name | to_upper_camel_case}}SearchEntity {
+public class {{table.name | to_upper_camel_case}}SearchParams {
 
     @Id
     @Column(name = "{{table.name | to_upper_snake_case}}_ID")

@@ -7,11 +7,59 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+
+// 検索DAO共通クラス
+class SearchDao<F, P extends SearchParams> {// TODO: このクラスは共通クラスとすること
+
+    @PersistenceContext(name = "default")
+    protected EntityManager em;
+
+    final Class<F> clazz;
+
+    SearchDao(Class<F> clazz) {
+        this.clazz = clazz;
+    }
+
+    /**
+     * 検索条件
+     * 
+     * @param params
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<F> search(P params) {
+        System.err.println(this.clazz);
+        final String strQuery = "SELECT * FROM " + this.clazz.getSimpleName();
+        final Query query = em.createNativeQuery(strQuery, this.clazz);
+        return query.getResultList();
+        // return new ArrayList<F>();
+    }
+
+    /**
+     * 検索条件
+     * 
+     * @param params
+     * @param perPage
+     * @return
+     */
+    public List<F> search(P params, int perPage) {
+        System.err.println(params.getClass());
+        return new ArrayList<F>();
+    }
+}
+
 @Component
-public class {{table.name | to_upper_camel_case}}SearchDao {
+public class {{table.name | to_upper_camel_case}}SearchDao extends SearchDao<{{table.name | to_upper_camel_case}}SearchEntity, {{table.name | to_upper_camel_case}}SearchParams> {
+
+    {{table.name | to_upper_camel_case}}SearchDao() {
+        super({{table.name | to_upper_camel_case}}SearchEntity.class);
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-    public List<{{table.name | to_upper_camel_case}}SearchEntity> search({{table.name | to_upper_camel_case}}SearchParams params){
+    public List<{{table.name | to_upper_camel_case}}SearchEntity> search({{table.name | to_upper_camel_case}}SearchParams params) {
         List<{{table.name | to_upper_camel_case}}SearchEntity> entityList = new ArrayList<>();
         return entityList;
     }

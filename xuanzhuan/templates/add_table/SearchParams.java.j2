@@ -1,13 +1,30 @@
 package {{package}};
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+// 検索パラメータ共通クラス
+abstract class SearchParams {// TODO: このクラスは共通クラスとすること
+
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<String, String>();
+        return map;
+    }
+
+    public String toLogString() {
+        return toMap().toString();
+    }
+}
+
+
 @Entity
 @Data
-public class {{table.name | to_upper_camel_case}}SearchParams {
+public class {{table.name | to_upper_camel_case}}SearchParams extends SearchParams {
 
     @Id
     @Column(name = "{{table.name | to_upper_snake_case}}_ID")

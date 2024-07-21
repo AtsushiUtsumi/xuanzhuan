@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 {% set key=table.name | to_upper_camel_case + "SearchEntity" %}import {{import_dict[key]}};
 {% set key=table.name | to_upper_camel_case + "SearchDao" %}import {{import_dict[key]}};
@@ -44,6 +43,9 @@ public class {{table.name | to_upper_camel_case}}ListController {
 	public String search({{table.name | to_upper_camel_case}}ListForm form, Model model) {
 
 		List<{{table.name | to_upper_camel_case}}SearchEntity> resultList = {{table.name | to_lower_camel_case}}SearchDao.search(new {{table.name | to_upper_camel_case}}SearchParams());
+
+		// TODO: 詰め替え作業
+		// form.setRows(rows);
 
 		return OWN_PAGE;
 	}

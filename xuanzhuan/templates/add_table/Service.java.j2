@@ -32,7 +32,7 @@ public class {{table.name | to_upper_camel_case}}Service {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void delete({{table.name | to_upper_camel_case}} {{table.name | to_lower_camel_case}}) {
-        {{table.name | to_lower_camel_case}}Dao.update({{table.name | to_lower_camel_case}});
+        {{table.name | to_lower_camel_case}}Dao.delete({{table.name | to_lower_camel_case}});
         return;
     }
 }

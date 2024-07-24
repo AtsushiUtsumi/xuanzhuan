@@ -1,40 +1,51 @@
 package {{package}};
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 {% set key=table.name | to_upper_camel_case %}import {{import_dict[key]}};
+{% set key=table.name | to_upper_camel_case + "Dao" %}import {{import_dict[key]}};
 
 @SpringBootTest
 public class {{table.name | to_upper_camel_case}}ServiceTest {
 
     @Autowired
+    @InjectMocks
     private {{table.name | to_upper_camel_case}}Service {{table.name | to_lower_camel_case}}Service;
+
+    @MockBean
+    private {{table.name | to_upper_camel_case}}Dao {{table.name | to_lower_camel_case}}Dao;
+
+    // 正常系用サンプルデータインスタンス生成
+    private {{table.name | to_upper_camel_case}} createSample() {
+        {{table.name | to_upper_camel_case}} sample = new {{table.name | to_upper_camel_case}}();
+        sample.setUserId(777);
+        sample.setUserName("FUGA");
+        return sample;
+    }
 
     @Test
     public void 登録テスト() {
-        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
-        entity.set{{table.name | to_upper_camel_case}}Id(777);
-        entity.set{{table.name | to_upper_camel_case}}Name("HOGE");
+        {{table.name | to_upper_camel_case}} entity = createSample();
         {{table.name | to_lower_camel_case}}Service.register(entity);
         assert true;
     }
 
     @Test
     public void 更新テスト() {
-        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
-        entity.set{{table.name | to_upper_camel_case}}Id(777);
-        entity.set{{table.name | to_upper_camel_case}}Name("FUGA");
+        {{table.name | to_upper_camel_case}} entity = createSample();
         {{table.name | to_lower_camel_case}}Service.update(entity);
         assert true;
     }
 
     @Test
     public void 削除テスト() {
-        {{table.name | to_upper_camel_case}} entity = new {{table.name | to_upper_camel_case}}();
-        entity.set{{table.name | to_upper_camel_case}}Id(777);
-        entity.set{{table.name | to_upper_camel_case}}Name("FUGA");
+        {{table.name | to_upper_camel_case}} entity = createSample();
+        // Mockito.doReturn(users).when(userDao).findAll();// 別にこの行をコメントアウトしても元々Springが管理していたメソッドが呼ばれていることからメソッド単位(ひょっとしたら引数単位?)で上書きしているのかも
         {{table.name | to_lower_camel_case}}Service.delete(entity);
         assert true;
     }

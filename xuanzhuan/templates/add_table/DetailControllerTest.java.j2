@@ -1,3 +1,7 @@
+{#- このテンプレートファイルで使用する変数は最初に定義しておく -#}
+{#- あと初めて知ったがハイフンを入れると改行しない、というよりハイフン抜きだと改行コードが出力される、という感じか -#}
+{%- set controller_class=table.name | to_upper_camel_case + "DetailController" -%}
+{%- set form_class=table.name | to_upper_camel_case + "DetailForm" -%}
 package {{package}};
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,15 +17,20 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class {{table.name | to_upper_camel_case}}DetailControllerTest {
+public class {{controller_class}}Test {
 
     @Autowired
-    private {{table.name | to_upper_camel_case}}DetailController {{table.name | to_lower_camel_case}}DetailController;
+    private {{controller_class}} target;
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private {{table.name | to_upper_camel_case}}DetailController target;
+    // 正常系用サンプルデータインスタンス生成
+    private {{form_class}} createSample() {
+        {{form_class}} sample = new {{form_class}}();
+        // sample.set{{table.name | to_upper_camel_case}}Id(777);
+        // sample.set{{table.name | to_upper_camel_case}}Name("FUGA");
+        return sample;
+    }
 
     @Test
     public void 初期表示() throws Exception {
@@ -34,10 +43,10 @@ public class {{table.name | to_upper_camel_case}}DetailControllerTest {
     @Test
     public void 入力チェック() throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        Method method = {{table.name | to_upper_camel_case}}DetailController.class.getDeclaredMethod("inputCheck", {{table.name | to_upper_camel_case}}DetailForm.class);
+        Method method = {{controller_class}}.class.getDeclaredMethod("inputCheck", {{form_class}}.class);
         method.setAccessible(true);
 
-        final boolean actual = (boolean) method.invoke({{table.name | to_lower_camel_case}}DetailController, new {{table.name | to_upper_camel_case}}DetailForm());
+        final boolean actual = (boolean) method.invoke(target, new {{form_class}}());
 
         assert (actual == true);
     }

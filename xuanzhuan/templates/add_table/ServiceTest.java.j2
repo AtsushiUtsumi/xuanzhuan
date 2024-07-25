@@ -21,10 +21,10 @@ public class {{table.name | to_upper_camel_case}}ServiceTest {
     private {{table.name | to_upper_camel_case}}Dao {{table.name | to_lower_camel_case}}Dao;
 
     // 正常系用サンプルデータインスタンス生成
-    private {{table.name | to_upper_camel_case}} createSample() {
+    private {{table.name | to_upper_camel_case}} createSample() {// フォームにもこれ追加してみては?
         {{table.name | to_upper_camel_case}} sample = new {{table.name | to_upper_camel_case}}();
-        sample.setUserId(777);
-        sample.setUserName("FUGA");
+        sample.set{{table.name | to_upper_camel_case}}Id(777);
+        sample.set{{table.name | to_upper_camel_case}}Name("FUGA");
         return sample;
     }
 

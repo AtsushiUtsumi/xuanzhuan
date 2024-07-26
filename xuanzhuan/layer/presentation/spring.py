@@ -41,7 +41,7 @@ class PresentationSpring(Presentation):
         os.makedirs(self.repository_root, exist_ok=True)
         os.makedirs(self.dao_root, exist_ok=True)
         os.makedirs(self.entity_root, exist_ok=True)
-        subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True)
+        subprocess.run(f'(cd {self.project_root}) && (git init) && (git add --all) && (git commit -m プロジェクト作成)', shell=True, capture_output=True, text=True, encoding='UTF-8')
         return
 
     def add_screen(self, screen_name):

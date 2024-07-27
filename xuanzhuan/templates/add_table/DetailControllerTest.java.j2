@@ -32,6 +32,16 @@ public class {{controller_class}}Test {
         return sample;
     }
 
+    // 入力チェック
+    private boolean inputCheck({{form_class}} form) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        Method method = UserDetailController.class.getDeclaredMethod("inputCheck", {{form_class}}.class);
+        method.setAccessible(true);
+        final boolean result = (boolean) method.invoke(target, form);
+
+        return result;
+    }
+
     @Test
     public void 初期表示() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(target).build();
@@ -43,10 +53,8 @@ public class {{controller_class}}Test {
     @Test
     public void 入力チェック() throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        Method method = {{controller_class}}.class.getDeclaredMethod("inputCheck", {{form_class}}.class);
-        method.setAccessible(true);
 
-        final boolean actual = (boolean) method.invoke(target, new {{form_class}}());
+        final boolean actual = this.inputCheck(this.createSample());
 
         assert (actual == true);
     }

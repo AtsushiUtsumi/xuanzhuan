@@ -35,7 +35,7 @@ public class {{controller_class}}Test {
     // 入力チェック
     private boolean inputCheck({{form_class}} form) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        Method method = UserDetailController.class.getDeclaredMethod("inputCheck", {{form_class}}.class);
+        Method method = {{table.name | to_upper_camel_case}}DetailController.class.getDeclaredMethod("inputCheck", {{form_class}}.class);
         method.setAccessible(true);
         final boolean result = (boolean) method.invoke(target, form);
 

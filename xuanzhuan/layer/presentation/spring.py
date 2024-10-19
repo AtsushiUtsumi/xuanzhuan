@@ -21,14 +21,14 @@ class PresentationSpring(Presentation):
         self._package_root = package_root
         package_path = self._package_root.replace('.', '/')
         self.project_root = f'{output_dir}/{project_name}'
-        self.repository_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/domain'
-        self.dao_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/dao'
-        self.entity_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/entity'
-        self.service_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/service'
-        self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/service'
-        self.controller_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
-        self.controller_test_root = f'{self.project_root}/src/test/java/{package_path}/{project_name}/controller'
-        self.form_root = f'{self.project_root}/src/main/java/{package_path}/{project_name}/controller'
+        self.repository_root = f'{self.project_root}/src/main/java/{package_path}/domain'
+        self.dao_root = f'{self.project_root}/src/main/java/{package_path}/dao'
+        self.entity_root = f'{self.project_root}/src/main/java/{package_path}/entity'
+        self.service_root = f'{self.project_root}/src/main/java/{package_path}/service'
+        self.service_test_root = f'{self.project_root}/src/test/java/{package_path}/service'
+        self.controller_root = f'{self.project_root}/src/main/java/{package_path}/controller'
+        self.controller_test_root = f'{self.project_root}/src/test/java/{package_path}/controller'
+        self.form_root = f'{self.project_root}/src/main/java/{package_path}/controller'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
         # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
         # いったんMavenプロジェクトに変更

@@ -51,7 +51,7 @@ class PresentationSpring(Presentation):
         lower_camel = xz.CaseConverter(screen_name).to_lower_camel_case()
         controller_file_name = f'{self.controller_root}/{upper_camel}Controller.java'
         form_file_name = f'{self.controller_root}/{upper_camel}Form.java'
-        package = f'{self._package_root}.{self._project_name}.controller'
+        package = f'{self._package_root}.controller'
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/Controller.java.j2', {'name': screen_name, 'package': package}, controller_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/Form.java.j2', {'name': screen_name, 'package': package}, form_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/list.html.j2', {'name': screen_name}, f'{self.templates_root}/{lower_camel}List.html')
@@ -91,15 +91,15 @@ class PresentationSpring(Presentation):
         search_dao_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}SearchDao.java'
         search_params_file_name = f'{self.dao_root}/search/{lower_camel}/{upper_camel}SearchParams.java'
 
-        package_root = f'{self._package_root}.{self._project_name}'
+        package_root = f'{self._package_root}'
         # importするときどのパッケージのどのクラスをimportするかを登録しておく(「UserRepository」といえば「com.example.domain.repository.UserRepository」をimportすれば良い)
         import_dict = dict()
-        import_dict[f'{upper_camel}'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}'
-        import_dict[f'{upper_camel}Dao'] = f'{self._package_root}.{self._project_name}.dao.crud.{lower_camel}.{upper_camel}Dao'
-        import_dict[f'{upper_camel}SearchEntity'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchEntity'
-        import_dict[f'{upper_camel}SearchDao'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchDao'
-        import_dict[f'{upper_camel}SearchParams'] = f'{self._package_root}.{self._project_name}.dao.search.{lower_camel}.{upper_camel}SearchParams'
-        import_dict[f'{upper_camel}Service'] = f'{self._package_root}.{self._project_name}.service.{lower_camel}.{upper_camel}Service'
+        import_dict[f'{upper_camel}'] = f'{self._package_root}.dao.crud.{lower_camel}.{upper_camel}'
+        import_dict[f'{upper_camel}Dao'] = f'{self._package_root}.dao.crud.{lower_camel}.{upper_camel}Dao'
+        import_dict[f'{upper_camel}SearchEntity'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchEntity'
+        import_dict[f'{upper_camel}SearchDao'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchDao'
+        import_dict[f'{upper_camel}SearchParams'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchParams'
+        import_dict[f'{upper_camel}Service'] = f'{self._package_root}.service.{lower_camel}.{upper_camel}Service'
 
         # HTML
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)
@@ -138,7 +138,7 @@ class PresentationSpring(Presentation):
         service_file_name = f'{self.service_root}/{upper_camel}ApplicationService.java'
         command_file_name = f'{self.service_root}/{upper_camel}ServiceCommand.java'
         test_file_name = f'{self.service_root}/{upper_camel}ServiceTest.java'
-        package_root = f'{self._package_root}.{self._project_name}'
+        package_root = f'{self._package_root}'
         # Serviceクラス
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/Service.java.j2', {'table': table, 'package': package_root+'.service'}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_use_case/ServiceCommand.java.j2', {'table': table, 'package': package_root+'.service'}, command_file_name)

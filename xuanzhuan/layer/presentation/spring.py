@@ -20,7 +20,7 @@ class PresentationSpring(Presentation):
         self._project_name = project_name
         self._package_root = package_root
         package_path = self._package_root.replace('.', '/')
-        self.project_root = f'{output_dir}/{project_name}'
+        self.project_root = f'{output_dir}'
         self.repository_root = f'{self.project_root}/src/main/java/{package_path}/domain'
         self.dao_root = f'{self.project_root}/src/main/java/{package_path}/dao'
         self.entity_root = f'{self.project_root}/src/main/java/{package_path}/entity'

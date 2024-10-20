@@ -121,10 +121,10 @@ class PresentationSpring(Presentation):
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/Service.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/ServiceTest.java.j2', {'table': table, 'package': package_root+'.service.' + lower_camel, 'import_dict': import_dict}, service_test_file_name)
         # Repositoryクラス
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudEntity.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel}, crud_entity_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudDao.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel}, crud_dao_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchEntity.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_entity_file_name)
-        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchDao.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel}, search_dao_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudEntity.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel, 'import_dict': import_dict}, crud_entity_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/CrudDao.java.j2', {'table': table, 'package': package_root+'.dao.crud.' + lower_camel, 'import_dict': import_dict}, crud_dao_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchEntity.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel, 'import_dict': import_dict}, search_entity_file_name)
+        xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchDao.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel, 'import_dict': import_dict}, search_dao_file_name)
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/SearchParams.java.j2', {'table': table, 'package': package_root+'.dao.search.' + lower_camel, 'import_dict': import_dict}, search_params_file_name)
         # クエリ
         # xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/query.sql.j2', {'table': table}, f'{self.templates_root}/{lower_camel}.sql')

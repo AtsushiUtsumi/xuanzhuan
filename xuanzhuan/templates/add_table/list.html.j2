@@ -10,7 +10,7 @@
   <input type="submit" value="検索" name="search"/><br>
   <span>ページネーション</span><br>
   <span>検索結果</span><br>
-  <table th:if="*{#lists.isEmpty(rows)}">
+  <table th:unless="*{#lists.isEmpty(rows)}">
     <tr th:each="row, rs: *{rows}">
       <td th:text="${rs.count}" />
     </tr>

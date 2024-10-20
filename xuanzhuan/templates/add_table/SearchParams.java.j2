@@ -21,16 +21,10 @@ abstract class SearchParams {// TODO: このクラスは共通クラスとする
     }
 }
 
-
-@Entity
-@Data
 public class {{table.name | to_upper_camel_case}}SearchParams extends SearchParams {
 
-    @Id
-    @Column(name = "{{table.name | to_upper_snake_case}}_ID")
     private Integer {{table.name | to_lower_camel_case}}Id;
 
-    @Column(name = "{{table.name | to_upper_snake_case}}_NAME")
     private String {{table.name | to_lower_camel_case}}Name;
 }
 

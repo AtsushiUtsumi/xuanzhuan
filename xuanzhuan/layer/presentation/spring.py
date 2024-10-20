@@ -100,6 +100,8 @@ class PresentationSpring(Presentation):
         import_dict[f'{upper_camel}SearchDao'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchDao'
         import_dict[f'{upper_camel}SearchParams'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchParams'
         import_dict[f'{upper_camel}Service'] = f'{self._package_root}.service.{lower_camel}.{upper_camel}Service'
+        # 以下、共通クラス
+        import_dict['SearchDao'] = f'{self._package_root}.dao.search.SearchDao'# 検索用DAO共通クラス
 
         # HTML
         xz.create_concrete_from_params(f'{xz.__templates_dir__}/add_table/list.html.j2', {'table': table}, list_html_file_name)

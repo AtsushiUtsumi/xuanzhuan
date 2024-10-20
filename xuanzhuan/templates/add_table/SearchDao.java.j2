@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+{% set key="SearchDao" %}import {{import_dict[key]}};
+
 @Component
 public class {{table.name | to_upper_camel_case}}SearchDao extends SearchDao<{{table.name | to_upper_camel_case}}SearchEntity, {{table.name | to_upper_camel_case}}SearchParams> {
 

@@ -15,12 +15,16 @@ class Presentation:
         print('HOGE')
         return
 class PresentationSpring(Presentation):
-    def __init__(self, output_dir, project_name, package_root: str):
+    def __init__(self, output_dir: str, project_name: str, group_id: str):
+        print('XuanZhuan出力ディレクトリ: ' + output_dir)
+        print('プロジェクト名: ' + project_name)
+        print('グループID: ' + group_id)
         os.makedirs(output_dir, exist_ok=True)
         self._project_name = project_name
-        self._package_root = package_root
+        self._package_root = group_id + '.' + project_name
+        self._group_id = group_id
         package_path = self._package_root.replace('.', '/')
-        self.project_root = f'{output_dir}'
+        self.project_root = f'{output_dir}/{project_name}'
         self.repository_root = f'{self.project_root}/src/main/java/{package_path}/domain'
         self.dao_root = f'{self.project_root}/src/main/java/{package_path}/dao'
         self.entity_root = f'{self.project_root}/src/main/java/{package_path}/entity'
@@ -30,10 +34,11 @@ class PresentationSpring(Presentation):
         self.controller_test_root = f'{self.project_root}/src/test/java/{package_path}/controller'
         self.form_root = f'{self.project_root}/src/main/java/{package_path}/controller'
         self.templates_root = f'{self.project_root}/src/main/resources/templates'
-        # cmd = '(cd ' + output_dir + ') && (spring init -d=web,thymeleaf,postgresql,data-jpa,lombok --type gradle-project --build=gradle -n=' + project_name + ' ' + project_name + ')'
+        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._group_id} --dependencies=web,thymeleaf,lombok,h2,data-jpa --build=maven --name={self._project_name} {self._project_name})'
         # いったんMavenプロジェクトに変更
-        cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,thymeleaf,lombok,h2,data-jpa --build=maven -n=' + project_name + ' ' + project_name + ')'
+        #cmd = '(cd ' + output_dir + f') && (spring init --groupId={self._package_root} -d=web,thymeleaf,lombok,h2,data-jpa --build=maven -n=' + project_name + ' ' + project_name + ')'
         # 各種ディレクトリ作成
+        print(cmd)
         subprocess.run(cmd, shell=True, capture_output=True, text=True)
         os.makedirs(self.form_root, exist_ok=True)
         os.makedirs(self.controller_root, exist_ok=True)

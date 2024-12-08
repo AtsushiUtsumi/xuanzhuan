@@ -106,7 +106,7 @@ class PresentationSpring(Presentation):
         import_dict[f'{upper_camel}SearchParams'] = f'{self._package_root}.dao.search.{lower_camel}.{upper_camel}SearchParams'
         import_dict[f'{upper_camel}Service'] = f'{self._package_root}.service.{lower_camel}.{upper_camel}Service'
         # 以下、共通クラス
-        import_dict['SearchDao'] = f'{self._package_root}.dao.search.SearchDao'# 検索用DAO共通クラス
+        import_dict['SearchDao'] = f'{self._package_root}.dao.SearchDao'# 検索用DAO共通クラス
         # こんなふうにこのプロジェクトで使う共通の書き方をどこかファイルに切り出してimportすれば良いのではないか
 
         # HTML
